@@ -5,7 +5,7 @@
 
 
 const Gpio = require('onoff').Gpio;
-const doorSensor = new Gpio(7, 'in', 'both', { debounceTimeout: 50 }); // 使用上拉电阻，防抖时间为 50 毫秒
+const doorSensor = new Gpio(7, 'in', 'rising', { debounceTimeout: 50 }); // 使用上拉电阻，防抖时间为 50 毫秒
 
 console.log('开始监听传感器状态变化...');
 
@@ -18,7 +18,7 @@ doorSensor.watch((err, value) => {
 
   console.log('🚀 - doorSensor.watch - value:', value)
 
-  if (value === 1) {
+  if (value === Gpio.HIGH) {
     console.log('门是关的');
   } else {
     console.log('门是开的');
