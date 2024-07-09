@@ -6,11 +6,12 @@ function watch(fn) {
   let prevValue = doorSensor.readSync();
   setInterval(() => {
     const currentValue = doorSensor.readSync();
+    console.log('🚀 - setInterval - currentValue:', currentValue)
     if (prevValue !== currentValue) {
       fn();
       prevValue = currentValue;
     }
-  }, 100);
+  }, 200);
 }
 
 
@@ -21,7 +22,7 @@ const debouncedGPIOChange = debounce(function handleGPIOChange() {
   } else if (currentValue === 1) {
     console.log('门已关闭');
   }
-}, 500)
+}, 1000)
 
 
 watch(debouncedGPIOChange);
