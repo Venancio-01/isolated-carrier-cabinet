@@ -1,5 +1,6 @@
 const Gpio = require('orange-pi-gpio');
 const eventEmitter = require('./utils/emit');
+
 const logger = require('./utils/logger');
 
 let isOpen = false
