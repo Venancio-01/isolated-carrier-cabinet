@@ -13,9 +13,9 @@ const gpio19 = new Gpio({
       setInterval(function() {
         gpio19.read()
           .then((state) => {
-            if (prevState !== state) {
-              logger.info('pin 19 通电变化: ' + state);
-            }
+            // if (prevState !== state) {
+            logger.info('pin 19 通电变化: ' + state);
+            // }
 
             // 开门
             if (state === '0') {
@@ -36,14 +36,14 @@ const gpio19 = new Gpio({
 
                 eventEmitter.emit('startRfidReading');
                 triggered = true
-              }, 2000);
+              }, 1000);
 
               triggered = false
             }
 
             prevState = state;
           });
-      }, 500)
+      }, 200)
     })
   }
 });
