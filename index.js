@@ -9,11 +9,6 @@ const doorSensor = new Gpio(7, 'in', 'both', { debounceTimeout: 50 }); // 使用
 
 console.log('开始监听传感器状态变化...');
 
-
-setInterval(() => {
-  console.log('doorSensor.readSync():', doorSensor.readSync());
-}, 1000);
-
 // 处理传感器状态变化的回调函数
 doorSensor.watch((err, value) => {
   if (err) {
@@ -21,7 +16,7 @@ doorSensor.watch((err, value) => {
     return;
   }
 
-  console.log('🚀 - doorSensor.watch - value:', value)
+  console.log('🚀 - doorSensor.watch - value:', typeof value)
 
   if (value === '1') {
     console.log('门是关的');
