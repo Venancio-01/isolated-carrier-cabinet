@@ -27,6 +27,7 @@ const gpio19 = new Gpio({
               }
 
               openDoorDebounceTimer = setTimeout(() => {
+                console.log('开门');
                 isOpen = true
                 triggered = false
                 openDoorDebounceTimer = null;
@@ -39,12 +40,13 @@ const gpio19 = new Gpio({
                 clearTimeout(openDoorDebounceTimer);
                 openDoorDebounceTimer = null;
               }
-              
+
               if (closeDoorDebounceTimer || triggered) {
                 return
               }
 
               closeDoorDebounceTimer = setTimeout(() => {
+                console.log('关门');
                 logger.info('level changed');
                 closeDoorDebounceTimer = null;
 
