@@ -25,6 +25,12 @@ doorSensor.watch((err, value) => {
   }
 });
 
+// 定时读取传感器状态用于调试
+setInterval(() => {
+  const currentValue = doorSensor.readSync();
+  console.log('当前传感器状态:', currentValue);
+}, 1000);
+
 process.on('SIGINT', () => {
   doorSensor.unexport(); // 清理 GPIO 资源
   process.exit();
