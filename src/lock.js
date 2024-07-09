@@ -29,7 +29,7 @@ function handleGPIOChange() {
       triggered = false
       clearTimeout(closeTimer)
       closeTimer = null
-    }, 1000)
+    }, 2000)
 
   } else if (currentValue === 1) {
     if (openTimer) {
@@ -43,7 +43,7 @@ function handleGPIOChange() {
       console.log('门已关闭');
       eventEmitter.emit('startRfidReading');
       closeTimer = null
-    }, 2000);
+    }, 3000);
   }
 }
 
