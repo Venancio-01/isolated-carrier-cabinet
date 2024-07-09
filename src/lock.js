@@ -31,7 +31,7 @@ const gpio19 = new Gpio({
                 isOpen = true
                 triggered = false
                 openDoorDebounceTimer = null;
-              })
+              }, 1000)
 
             }
             // 关门
