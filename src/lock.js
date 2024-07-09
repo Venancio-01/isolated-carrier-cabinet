@@ -10,7 +10,7 @@ function watch(fn) {
       fn();
       prevValue = currentValue;
     }
-  }, 50);
+  }, 100);
 }
 
 
@@ -21,7 +21,7 @@ const debouncedGPIOChange = debounce(function handleGPIOChange() {
   } else if (currentValue === 1) {
     console.log('门已关闭');
   }
-}, 200)
+}, 500)
 
 
 watch(debouncedGPIOChange);
