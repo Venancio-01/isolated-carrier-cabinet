@@ -16,9 +16,9 @@ doorSensor.watch((err, value) => {
     return;
   }
 
-  console.log('🚀 - doorSensor.watch - value:', typeof value)
+  console.log('🚀 - doorSensor.watch - value:', value)
 
-  if (value === '1') {
+  if (value === 1) {
     console.log('门是关的');
   } else {
     console.log('门是开的');
