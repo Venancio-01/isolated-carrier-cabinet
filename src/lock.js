@@ -12,35 +12,35 @@ const gpio19 = new Gpio({
       setInterval(function() {
         gpio19.read()
           .then((state) => {
-            // if (prevState !== state) {
+            if (prevState !== state) {
               logger.info('pin 19 通电变化: ' + state);
-            // }
+            }
 
-            // 通电 - 开门
-            // if (state === '1') {
-            //   if (debounceTimer) {
-            //     clearTimeout(debounceTimer);
-            //     debounceTimer = null;
-            //   }
-            // }
-            // // 断电 - 关门
-            // else if (state === '0') {
-            //   if (debounceTimer || triggered) {
-            //     return
-            //   }
+            // 开门
+            if (state === '0') {
+              if (debounceTimer) {
+                clearTimeout(debounceTimer);
+                debounceTimer = null;
+              }
+            }
+            // 关门
+            else if (state === '1') {
+              if (debounceTimer || triggered) {
+                return
+              }
 
-            //   debounceTimer = setTimeout(() => {
-            //     logger.info('level changed');
-            //     debounceTimer = null;
+              debounceTimer = setTimeout(() => {
+                logger.info('level changed');
+                debounceTimer = null;
 
-            //     eventEmitter.emit('startRfidReading');
-            //     triggered = true
-            //   }, 2000);
+                eventEmitter.emit('startRfidReading');
+                triggered = true
+              }, 2000);
 
-            //   triggered = false
-            // }
+              triggered = false
+            }
 
-            // prevState = state;
+            prevState = state;
           });
       }, 500)
     })
