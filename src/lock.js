@@ -47,10 +47,9 @@ const gpio19 = new Gpio({
 
               closeDoorDebounceTimer = setTimeout(() => {
                 console.log('关门');
-                logger.info('level changed');
                 closeDoorDebounceTimer = null;
 
-                eventEmitter.emit('startRfidReading');
+                // eventEmitter.emit('startRfidReading');
                 triggered = true
               }, 1000);
             }
