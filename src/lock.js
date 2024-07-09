@@ -23,6 +23,8 @@ const gpio19 = new Gpio({
                 clearTimeout(debounceTimer);
                 debounceTimer = null;
               }
+
+              triggered = false
             }
             // 关门
             else if (state === '1') {
@@ -37,8 +39,6 @@ const gpio19 = new Gpio({
                 eventEmitter.emit('startRfidReading');
                 triggered = true
               }, 1000);
-
-              triggered = false
             }
 
             prevState = state;
