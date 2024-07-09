@@ -8,6 +8,7 @@ const Gpio = require('onoff').Gpio;
 const doorSensor = new Gpio(7, 'in', 'both', { debounceTimeout: 100 }); // 使用上拉电阻，防抖时间为 50 毫秒
 
 console.log('开始监听传感器状态变化...');
+console.log(Gpio.accessible, 'Gpio.accessible');
 
 // 处理传感器状态变化的回调函数
 doorSensor.watch((err, value) => {
@@ -17,6 +18,8 @@ doorSensor.watch((err, value) => {
   }
 
   console.log('🚀 - doorSensor.watch - value:', value)
+  console.log(doorSensor.edge(), 'doorSensor.edge()');
+  console.log(doorSensor.direction(), 'doorSensor.direction()');
 
   if (value === Gpio.HIGH) {
     console.log('门是关的');
