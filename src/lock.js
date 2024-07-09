@@ -6,7 +6,8 @@ let isOpen = false
 let openDoorDebounceTimer = null;
 let closeDoorDebounceTimer = null;
 let prevState = null
-let triggered = false
+let openDoorTriggered = false
+let closeDoorTriggered = false
 
 // 设置 pin 19 为上拉输入
 const gpio19 = new Gpio({
@@ -26,10 +27,15 @@ const gpio19 = new Gpio({
                 closeDoorDebounceTimer = null;
               }
 
+              if (openDoorTriggered) {
+                return
+              }
+
               openDoorDebounceTimer = setTimeout(() => {
                 console.log('开门');
                 isOpen = true
-                triggered = false
+                openDoorTriggered = true
+                closeDoorTriggered = false
                 openDoorDebounceTimer = null;
               }, 1000)
 
@@ -41,7 +47,7 @@ const gpio19 = new Gpio({
                 openDoorDebounceTimer = null;
               }
 
-              if (closeDoorDebounceTimer || triggered) {
+              if (closeDoorDebounceTimer || closeDoorTriggered) {
                 return
               }
 
@@ -50,7 +56,7 @@ const gpio19 = new Gpio({
                 closeDoorDebounceTimer = null;
 
                 // eventEmitter.emit('startRfidReading');
-                triggered = true
+                closeDoorTriggered = true
               }, 1000);
             }
 
