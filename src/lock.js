@@ -2,7 +2,9 @@ const Gpio = require('orange-pi-gpio');
 const eventEmitter = require('./utils/emit');
 const logger = require('./utils/logger');
 
-let debounceTimer = null;
+let isOpen = false
+let openDoorDebounceTimer = null;
+let closeDoorDebounceTimer = null;
 let prevState = null
 let triggered = false
 
@@ -19,22 +21,32 @@ const gpio19 = new Gpio({
 
             // 开门
             if (state === '0') {
-              if (debounceTimer) {
-                clearTimeout(debounceTimer);
-                debounceTimer = null;
+              if (closeDoorDebounceTimer) {
+                clearTimeout(closeDoorDebounceTimer);
+                closeDoorDebounceTimer = null;
               }
 
-              triggered = false
+              openDoorDebounceTimer = setTimeout(() => {
+                isOpen = true
+                triggered = false
+                openDoorDebounceTimer = null;
+              })
+
             }
             // 关门
             else if (state === '1') {
-              if (debounceTimer || triggered) {
+              if (openDoorDebounceTimer) {
+                clearTimeout(openDoorDebounceTimer);
+                openDoorDebounceTimer = null;
+              }
+              
+              if (closeDoorDebounceTimer || triggered) {
                 return
               }
 
-              debounceTimer = setTimeout(() => {
+              closeDoorDebounceTimer = setTimeout(() => {
                 logger.info('level changed');
-                debounceTimer = null;
+                closeDoorDebounceTimer = null;
 
                 eventEmitter.emit('startRfidReading');
                 triggered = true
