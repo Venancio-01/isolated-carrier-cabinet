@@ -11,9 +11,9 @@ const gpio19 = new Gpio({
     setInterval(function() {
       gpio19.read()
         .then((state) => {
-          if (prevState !== state) {
+          // if (prevState !== state) {
             logger.info('pin 19 通电变化: ' + state);
-          }
+          // }
 
           if (state === '1') {
             if (debounceTimer || triggered) {
