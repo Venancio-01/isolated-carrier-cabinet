@@ -4,6 +4,7 @@ const eventEmitter = require('./utils/emit');
 const doorSensor = new Gpio(7, 'in', 'both', { debounceTimeout: 200 });
 // 已经触发过的
 let triggered = false
+let timer = null
 
 function watch(fn) {
   let prevValue = doorSensor.readSync();
@@ -17,21 +18,25 @@ function watch(fn) {
   }, 300);
 }
 
-
-const debouncedGPIOChange = debounce(function handleGPIOChange() {
+function handleGPIOChange() {
   const currentValue = doorSensor.readSync();
   if (currentValue === 0) {
-    console.log('门已打开');
+    // console.log('门已打开');
     triggered = false
+    clearTimeout(timer)
+    timer = null
   } else if (currentValue === 1) {
     if (triggered) return
-    console.log('门已关闭');
-    eventEmitter.emit('startRfidReading');
+
+    timer = setTimeout(() => {
+      console.log('门已关闭');
+      eventEmitter.emit('startRfidReading');
+      timer = null
+    }, 1000);
   }
-}, 1500)
+}
 
-
-watch(debouncedGPIOChange);
+watch(handleGPIOChange);
 
 
 // doorSensor.watch((err, value) => {
