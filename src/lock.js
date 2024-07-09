@@ -1,6 +1,6 @@
 const Gpio = require('onoff').Gpio;
 const debounce = require('lodash.debounce');
-const doorSensor = new Gpio(7, 'in', 'falling', { debounceTimeout: 100 }); // 使用上拉电阻，防抖时间为 50 毫秒
+const doorSensor = new Gpio(7, 'in', 'both', { debounceTimeout: 200 });
 
 function watch(fn) {
   let prevValue = doorSensor.readSync();
@@ -25,7 +25,16 @@ const debouncedGPIOChange = debounce(function handleGPIOChange() {
 }, 1000)
 
 
-watch(debouncedGPIOChange);
+// watch(debouncedGPIOChange);
+
+
+doorSensor.watch((err, value) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('🚀 - doorSensor.watch - value:', value)
+  }
+})
 
 
 function unExport() {
