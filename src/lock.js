@@ -13,7 +13,7 @@ let closeDoorTriggered = false
 // 设置 pin 19 为上拉输入
 const gpio19 = new Gpio({
   pin: 19, mode: 'in', ready: () => {
-    gpio19.cmd('gpio mode 19 up').then(() => {
+    gpio19.cmd('gpio mode 19 down').then(() => {
       setInterval(function() {
         gpio19.read()
           .then((state) => {
