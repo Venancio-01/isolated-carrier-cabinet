@@ -1,7 +1,7 @@
 const Gpio = require('onoff').Gpio;
 const debounce = require('lodash.debounce');
 const eventEmitter = require('./utils/emit');
-const doorSensor = new Gpio(7, 'in', 'both', { debounceTimeout: 200 });
+const doorSensor = new Gpio(8, 'in', 'both', { debounceTimeout: 200 });
 // 已经触发过的
 let triggered = false
 let closeTimer = null
