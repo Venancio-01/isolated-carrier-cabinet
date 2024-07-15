@@ -1,68 +1,72 @@
-const Gpio = require('onoff').Gpio;
-const debounce = require('lodash.debounce');
+const Gpio = require('orange-pi-gpio');
 const eventEmitter = require('./utils/emit');
-const doorSensor = new Gpio(7, 'in', 'both', { debounceTimeout: 200 });
-// 已经触发过的
-let triggered = false
-let closeTimer = null
-let openTimer = null
 
-function watch(fn) {
-  let prevValue = doorSensor.readSync();
-  setInterval(() => {
-    const currentValue = doorSensor.readSync();
-    console.log('🚀 - setInterval - currentValue:', currentValue)
-    if (prevValue !== currentValue) {
-      fn();
-      prevValue = currentValue;
-    }
-  }, 300);
-}
+const logger = require('./utils/logger');
 
-function handleGPIOChange() {
-  const currentValue = doorSensor.readSync();
-  if (currentValue === 0) {
-    if (openTimer) return
+let isOpen = false
+let openDoorDebounceTimer = null;
+let closeDoorDebounceTimer = null;
+let prevState = null
+let openDoorTriggered = false
+let closeDoorTriggered = false
 
-    openTimer = setTimeout(() => {
-      console.log('门已打开');
-      triggered = false
-      clearTimeout(closeTimer)
-      closeTimer = null
-    }, 2000)
+// 设置 pin 19 为上拉输入
+const gpio19 = new Gpio({
+  pin: 19, mode: 'in', ready: () => {
+    gpio19.cmd('gpio mode 19 up').then(() => {
+      setInterval(function() {
+        gpio19.read()
+          .then((state) => {
+            // if (prevState !== state) {
+            logger.info('pin 19 通电变化: ' + state);
+            // }
+            return
 
-  } else if (currentValue === 1) {
-    if (openTimer) {
-      clearTimeout(openTimer)
-      openTimer = null
-    }
+            // 开门
+            if (state === '0') {
+              if (closeDoorDebounceTimer) {
+                clearTimeout(closeDoorDebounceTimer);
+                closeDoorDebounceTimer = null;
+              }
 
-    if (triggered || closeTimer) return
+              if (openDoorTriggered) {
+                return
+              }
 
-    closeTimer = setTimeout(() => {
-      console.log('门已关闭');
-      eventEmitter.emit('startRfidReading');
-      closeTimer = null
-    }, 3000);
+              openDoorDebounceTimer = setTimeout(() => {
+                console.log('开门');
+                isOpen = true
+                openDoorTriggered = true
+                closeDoorTriggered = false
+                openDoorDebounceTimer = null;
+              }, 1000)
+
+            }
+            // 关门
+            else if (state === '1') {
+              if (openDoorDebounceTimer) {
+                clearTimeout(openDoorDebounceTimer);
+                openDoorDebounceTimer = null;
+              }
+
+              if (closeDoorDebounceTimer || closeDoorTriggered) {
+                return
+              }
+
+              closeDoorDebounceTimer = setTimeout(() => {
+                console.log('关门');
+                closeDoorDebounceTimer = null;
+
+                // eventEmitter.emit('startRfidReading');
+                closeDoorTriggered = true
+              }, 1000);
+            }
+
+            prevState = state;
+          });
+      }, 200)
+    })
   }
-}
-
-watch(handleGPIOChange);
+});
 
 
-// doorSensor.watch((err, value) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log('🚀 - doorSensor.watch - value:', value)
-//   }
-// })
-
-
-function unExport() {
-  doorSensor.unexport();
-}
-
-module.exports = {
-  unExport
-}
