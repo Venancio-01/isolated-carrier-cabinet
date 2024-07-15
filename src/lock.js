@@ -3,6 +3,7 @@ const eventEmitter = require('./utils/emit');
 
 const logger = require('./utils/logger');
 
+const port = 20
 let isOpen = false
 let openDoorDebounceTimer = null;
 let closeDoorDebounceTimer = null;
@@ -10,15 +11,15 @@ let prevState = null
 let openDoorTriggered = false
 let closeDoorTriggered = false
 
-// 设置 pin 19 为上拉输入
-const gpio19 = new Gpio({
-  pin: 19, mode: 'in', ready: () => {
-    gpio19.cmd('gpio mode 19 down').then(() => {
+// 设置 pin 为上拉输入
+const gpio = new Gpio({
+  pin: port, mode: 'in', ready: () => {
+    gpio.cmd(`gpio mode ${port} down`).then(() => {
       setInterval(function() {
-        gpio19.read()
+        gpio.read()
           .then((state) => {
             // if (prevState !== state) {
-            logger.info('pin 19 通电变化: ' + state);
+            logger.info('pin ' + port + ' 通电变化: ' + state);
             // }
             return
 
