@@ -11,11 +11,12 @@ function watch(fn) {
   let prevValue = doorSensor.readSync();
   setInterval(() => {
     const currentValue = doorSensor.readSync();
-    if (prevValue !== currentValue) {
-      fn();
-      prevValue = currentValue;
-    }
-  }, 300);
+    console.log('🚀 - setInterval - currentValue:', currentValue)
+    // if (prevValue !== currentValue) {
+    //   fn();
+    //   prevValue = currentValue;
+    // }
+  }, 500);
 }
 
 function handleGPIOChange() {
