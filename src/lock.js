@@ -13,9 +13,10 @@ const gpio = new Gpio({
     setInterval(function() {
       gpio.read()
         .then((state) => {
-          if (prevState !== state) {
+          // if (prevState !== state) {
             logger.info('pin ' + port + ' 通电变化: ' + state);
-          }
+          // }
+          return
 
           // 开门
           if (state === '0') {
