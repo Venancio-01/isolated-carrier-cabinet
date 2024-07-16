@@ -3,7 +3,7 @@ const eventEmitter = require('./utils/emit');
 
 const logger = require('./utils/logger');
 
-const port = 17
+const port = 20
 let closeDoorDebounceTimer = null;
 let prevState = null
 let triggered = false
