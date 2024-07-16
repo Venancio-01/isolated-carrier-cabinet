@@ -3,54 +3,29 @@ const eventEmitter = require('./utils/emit');
 
 const logger = require('./utils/logger');
 
-const port = 2
-let isOpen = false
-let openDoorDebounceTimer = null;
+const port = 17
 let closeDoorDebounceTimer = null;
 let prevState = null
-let openDoorTriggered = false
-let closeDoorTriggered = false
+let triggered = false
 
-// 设置 pin 为上拉输入
 const gpio = new Gpio({
   pin: port, mode: 'in', ready: () => {
-    // gpio.cmd(`gpio mode ${port} down`).then(() => {
     setInterval(function() {
       gpio.read()
         .then((state) => {
-          // if (prevState !== state) {
-          logger.info('pin ' + port + ' 通电变化: ' + state);
-          // }
-          return
+          if (prevState !== state) {
+            logger.info('pin ' + port + ' 通电变化: ' + state);
+          }
 
           // 开门
           if (state === '0') {
-            if (closeDoorDebounceTimer) {
-              clearTimeout(closeDoorDebounceTimer);
-              closeDoorDebounceTimer = null;
-            }
-
-            if (openDoorTriggered) {
-              return
-            }
-
-            openDoorDebounceTimer = setTimeout(() => {
-              console.log('开门');
-              isOpen = true
-              openDoorTriggered = true
-              closeDoorTriggered = false
-              openDoorDebounceTimer = null;
-            }, 1000)
-
+            console.log('开门');
+            isOpen = true
+            triggered = false
           }
           // 关门
           else if (state === '1') {
-            if (openDoorDebounceTimer) {
-              clearTimeout(openDoorDebounceTimer);
-              openDoorDebounceTimer = null;
-            }
-
-            if (closeDoorDebounceTimer || closeDoorTriggered) {
+            if (closeDoorDebounceTimer || triggered) {
               return
             }
 
@@ -58,15 +33,14 @@ const gpio = new Gpio({
               console.log('关门');
               closeDoorDebounceTimer = null;
 
-              // eventEmitter.emit('startRfidReading');
-              closeDoorTriggered = true
+              eventEmitter.emit('startRfidReading');
+              triggered = true
             }, 1000);
           }
 
           prevState = state;
         });
     }, 500)
-    // })
   }
 });
 
