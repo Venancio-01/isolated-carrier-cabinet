@@ -3,7 +3,7 @@ const eventEmitter = require('./utils/emit');
 
 const logger = require('./utils/logger');
 
-const port = 20
+const port = 17
 let isOpen = false
 let openDoorDebounceTimer = null;
 let closeDoorDebounceTimer = null;
@@ -65,7 +65,7 @@ const gpio = new Gpio({
 
             prevState = state;
           });
-      }, 200)
+      }, 500)
     })
   }
 });
