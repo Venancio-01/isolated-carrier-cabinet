@@ -1,4 +1,3 @@
-// const { unExport } = require('./src/lock-new')
 require('./src/lock')
 require('./src/screen')
 require('./src/screen')
