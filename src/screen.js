@@ -10,6 +10,7 @@ const port = new SerialPort({
 })
 
 port.on('open', function() {
+  console.log('open')
   logger.info('Screen SerialPort Open')
   initScreen()
 })
@@ -24,8 +25,8 @@ function writeCommand(command) {
       console.error('Error writing to screen serial port:', err)
     }
 
-    logger.info('Command written to screen serial port', command.toString('hex'))
-    console.log('🚀 - port.write - command:', command)
+    logger.info('Command written to screen serial port:' + command.toString('hex'))
+    console.log('🚀 - port.write - command:', command.toString('hex'))
   })
 }
 
