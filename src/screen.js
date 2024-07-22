@@ -49,6 +49,7 @@ const block5 = '0080'
 const block6 = '0100'
 
 function initScreen() {
+  console.log(111)
   const command1 = generateCommand(`${block1}${generateScreenCommandBody('  0')}`)
   const command2 = generateCommand(`${block2}${generateScreenCommandBody('')}`)
   const command3 = generateCommand(`${block3}${generateScreenCommandBody(' ' + config.user)}`)
