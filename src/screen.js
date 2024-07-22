@@ -4,6 +4,17 @@ const { generateScreenCommandBody } = require('./utils/util');
 const config = require('../config');
 const logger = require('./utils/logger');
 
+SerialPort.list().then(
+  ports => {
+    ports.forEach(port => {
+      console.log(port)
+    });
+  },
+  err => {
+    console.error('出错了: ', err.message);
+  }
+);
+
 const port = new SerialPort({
   path: '/dev/ttyS2',
   baudRate: 115200,
