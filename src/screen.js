@@ -25,6 +25,7 @@ function writeCommand(command) {
     }
 
     logger.info('Command written to screen serial port', command.toString('hex'))
+    console.log('🚀 - port.write - command:', command)
   })
 }
 
