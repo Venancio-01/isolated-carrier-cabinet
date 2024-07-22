@@ -10,7 +10,6 @@ let triggered = false
 const gpio = new Gpio({
   pin: port, mode: 'in', ready: async () => {
     prevState = await gpio.read()
-    console.log('🚀 - pin:port,mode:ready: - prevState:', prevState)
     setInterval(function() {
       gpio.read()
         .then((state) => {

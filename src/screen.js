@@ -18,6 +18,7 @@ port.on('data', function(data) {
 })
 
 function writeCommand(command) {
+  console.log('🚀 - writeCommand - command:', command)
   port.write(command, (err) => {
     if (err) {
       console.error('Error writing to screen serial port:', err)
@@ -36,7 +37,6 @@ function generateCommand(body) {
   const commandStr = `${head}${len}${prefix}${body}${end}`
   const buf = Buffer.from(commandStr, 'hex')
 
-  console.log(buf.toString('hex'))
   return buf
 }
 
