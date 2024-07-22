@@ -11,6 +11,7 @@ const port = new SerialPort({
 
 port.on('open', function() {
   logger.info('Screen SerialPort Open')
+  initScreen()
 })
 
 port.on('data', function(data) {
@@ -18,12 +19,12 @@ port.on('data', function(data) {
 })
 
 function writeCommand(command) {
-  console.log('🚀 - writeCommand - command:', command)
   port.write(command, (err) => {
     if (err) {
       console.error('Error writing to screen serial port:', err)
     }
 
+    console.log('🚀 - writeCommand - command:', command)
     logger.info('Command written to screen serial port', command.toString('hex'))
   })
 }
@@ -62,7 +63,6 @@ function initScreen() {
   })
 }
 
-initScreen()
 
 function updateRfidCount(count) {
   const command = generateCommand(`${block1}${generateScreenCommandBody(count.toString().padStart(3, ' '))}`)
