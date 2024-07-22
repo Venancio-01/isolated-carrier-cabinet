@@ -24,7 +24,6 @@ function writeCommand(command) {
       console.error('Error writing to screen serial port:', err)
     }
 
-    console.log('🚀 - writeCommand - command:', command)
     logger.info('Command written to screen serial port', command.toString('hex'))
   })
 }
