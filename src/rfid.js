@@ -45,7 +45,7 @@ function startReading() {
   const antennaIds = [1, 2, 3, 4]
   const startCommand = generateStartCommand(antennaIds)
 
-  console.log('🚀 - startReading - startCommand:', startCommand)
+  writeCommand(generateStopCommand())
   writeCommand(startCommand)
 
   countdown = 5;
