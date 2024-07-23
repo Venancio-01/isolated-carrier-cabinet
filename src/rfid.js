@@ -13,7 +13,9 @@ const messageQueue = new MessageQueue()
 
 port.on('open', function() {
   logger.info('Rfid SerialPort Open')
-  startReading()
+  setTimeout(() => {
+    startReading()
+  }, 3000);
 })
 
 port.on('data', function(data) {
@@ -36,7 +38,6 @@ let countdown = 5
 let timer = null
 
 function startReading() {
-
   logger.info('Start reading RFID...')
 
   // 重置消息队列
