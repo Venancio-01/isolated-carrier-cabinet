@@ -30,7 +30,7 @@ function writeCommand(command) {
       console.error('Error writing to rfid serial port:', err)
     }
 
-    logger.info('Command written to rfid serial port', command.toString('hex'))
+    logger.info('Command written to rfid serial port:' + command.toString('hex'))
   })
 }
 
