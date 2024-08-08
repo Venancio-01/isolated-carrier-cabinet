@@ -52,6 +52,7 @@ function initScreen() {
   const command4 = generateCommand(`${block4}${generateScreenCommandBody('')}`)
 
   const commands = [command1, command2, command3, command4]
+  console.log('🚀 - initScreen - commands:', commands)
 
   commands.forEach(command => {
     writeCommand(command)
