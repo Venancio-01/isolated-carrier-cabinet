@@ -13,18 +13,17 @@ const gpio = new Gpio({
     setInterval(function() {
       gpio.read()
         .then((state) => {
-          // if (prevState !== state) {
+          if (prevState !== state) {
             logger.info('pin ' + port + ' 通电状态: ' + state);
-          // }
-          return
+          }
 
           // 开门
-          if (state === '0') {
+          if (state === '1') {
             console.log('开门');
             triggered = false
           }
           // 关门
-          else if (state === '1') {
+          else if (state === '0') {
             console.log('关门');
 
             if (triggered) return

@@ -13,9 +13,6 @@ const messageQueue = new MessageQueue()
 
 port.on('open', function() {
   logger.info('Rfid SerialPort Open')
-  setTimeout(() => {
-    startReading()
-  }, 3000);
 })
 
 port.on('data', function(data) {

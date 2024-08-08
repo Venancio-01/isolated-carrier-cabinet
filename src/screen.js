@@ -40,23 +40,18 @@ function generateCommand(body) {
   return buf
 }
 
-const block1 = '0001'
-const block2 = '0020'
-const block3 = '0040'
-const block4 = '0060'
-const block5 = '0080'
-const block6 = '0100'
+const block1 = '01F1'
+const block2 = '026C'
+const block3 = '02E7'
+const block4 = '0362'
 
 function initScreen() {
   const command1 = generateCommand(`${block1}${generateScreenCommandBody('  0')}`)
   const command2 = generateCommand(`${block2}${generateScreenCommandBody('')}`)
   const command3 = generateCommand(`${block3}${generateScreenCommandBody(' ' + config.user)}`)
   const command4 = generateCommand(`${block4}${generateScreenCommandBody('')}`)
-  const command5 = generateCommand(`${block5}${generateScreenCommandBody('')}`)
-  const command6 = generateCommand(`${block6}${generateScreenCommandBody('')}`)
 
-  const commands = [command1, command2, command3, command4, command5, command6]
-  // const commands = [command6]
+  const commands = [command1, command2, command3, command4]
 
   commands.forEach(command => {
     writeCommand(command)
@@ -77,7 +72,7 @@ function updatePrompt(countdown) {
     body = generateScreenCommandBody('  检测中-' + countdown)
   }
 
-  const command = generateCommand(`${block6}${body}`)
+  const command = generateCommand(`${block4}${body}`)
   writeCommand(command)
 }
 
