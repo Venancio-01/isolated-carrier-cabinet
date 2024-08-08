@@ -5,7 +5,7 @@ const config = require('../config');
 const logger = require('./utils/logger');
 
 const port = new SerialPort({
-  path: '/dev/ttyS3',
+  path: '/dev/ttyS2',
   baudRate: 115200,
 })
 
