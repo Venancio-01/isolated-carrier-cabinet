@@ -48,15 +48,15 @@ const block5 = '0080'
 const block6 = '0100'
 
 function initScreen() {
-  // const command1 = generateCommand(`${block1}${generateScreenCommandBody('  0')}`)
-  // const command2 = generateCommand(`${block2}${generateScreenCommandBody('')}`)
-  // const command3 = generateCommand(`${block3}${generateScreenCommandBody(' ' + config.user)}`)
-  // const command4 = generateCommand(`${block4}${generateScreenCommandBody('')}`)
-  // const command5 = generateCommand(`${block5}${generateScreenCommandBody('')}`)
+  const command1 = generateCommand(`${block1}${generateScreenCommandBody('  0')}`)
+  const command2 = generateCommand(`${block2}${generateScreenCommandBody('')}`)
+  const command3 = generateCommand(`${block3}${generateScreenCommandBody(' ' + config.user)}`)
+  const command4 = generateCommand(`${block4}${generateScreenCommandBody('')}`)
+  const command5 = generateCommand(`${block5}${generateScreenCommandBody('')}`)
   const command6 = generateCommand(`${block6}${generateScreenCommandBody('')}`)
 
-  // const commands = [command1, command2, command3, command4, command5, command6]
-  const commands = [command6]
+  const commands = [command1, command2, command3, command4, command5, command6]
+  // const commands = [command6]
 
   commands.forEach(command => {
     writeCommand(command)
