@@ -1,0 +1,11 @@
+[Unit]
+Description=Node.js Service for isolated-carrier-cabinet
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /home/orangepi/project/isolated-carrier-cabinet/index.js
+User=orangepi
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
