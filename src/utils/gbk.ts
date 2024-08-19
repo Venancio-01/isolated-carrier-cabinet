@@ -54,7 +54,8 @@ export default function(str, opt = {}) {
   for (let i = 0; i < str.length; i++) {
     const code = str.charCodeAt(i)
     if (code < 0x80) {
-      buf[n++] = code
+      buf[n++]
+  ntin
       continue
     }
     const gbk = table[code]
