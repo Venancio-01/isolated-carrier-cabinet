@@ -59,18 +59,16 @@ function initScreen() {
   });
 }
 
-function updateRfidCount(count) {
-  const command = generateCommand(`${block1}${generateScreenCommandBody(count.toString().padStart(3, " "))}`);
+function updateRfidCount(count: number) {
+  const commandBody = generateScreenCommandBody(count.toString().padStart(3, " "));
+  const command = generateCommand(`${block1}${commandBody}`);
   writeCommand(command);
 }
 
-function updatePrompt(countdown) {
-  let body = null;
-  if (countdown === 0) {
-    body = generateScreenCommandBody("");
-  } else {
-    body = generateScreenCommandBody("  检测中-" + countdown);
-  }
+function updatePrompt(countdown: number) {
+  const body = countdown === 0
+    ? generateScreenCommandBody("")
+    : generateScreenCommandBody(`  检测中-${countdown}`);
 
   const command = generateCommand(`${block4}${body}`);
   writeCommand(command);

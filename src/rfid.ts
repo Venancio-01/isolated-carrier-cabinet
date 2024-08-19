@@ -20,7 +20,7 @@ port.on("data", function (data) {
   logger.info("Rfid Data:" + hexData);
   messageQueue.add(hexData);
 });
-
+ 
 function writeCommand(command:Buffer | string) {
   port.write(command, err => {
     if (err) {
