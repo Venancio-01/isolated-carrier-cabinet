@@ -41,7 +41,7 @@ const defaultOnAlloc = NodeJsBufAlloc
 const defaultOnError = () => 63   // '?'
 
 
-module.exports = function(str, opt = {}) {
+export default function(str, opt = {}) {
   if (!table) {
     initGbkTable()
   }

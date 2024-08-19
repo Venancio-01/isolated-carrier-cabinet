@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "build": "pkg --target node14-linux-armv7 index.js"
+    "start": "tsc && node dist/index.js",
+    "build:pkg": "pkg --target node14-linux-armv7 index.js"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +19,9 @@
     "rfid-utils": "^0.0.8",
     "serialport": "^12.0.0",
     "str2gbk": "^0.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.4.0",
+    "typescript": "^5.5.4"
   }
 }
