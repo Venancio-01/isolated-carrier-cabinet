@@ -1,8 +1,12 @@
 import { SerialPort } from "serialport";
 import eventEmitter from "./utils/emit";
 import { generateScreenCommandBody } from "./utils/util";
-import config from "@config";
+import * as path from 'path';
+import * as fs from 'fs';
 import logger from "./utils/logger";
+
+const configPath = path.resolve(__dirname, '../config.json');
+const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 
 const port = new SerialPort({
   path: "/dev/ttyS2",

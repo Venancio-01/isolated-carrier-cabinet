@@ -32,7 +32,7 @@ function generateScreenCommandBody(str: string) {
   const encodedBytes = str2gbk(str);
   // 转十六进制字符串
   const hexString = Array.from(encodedBytes)
-    .map((byte: number) => byte.toString(16).toUpperCase().padStart(2, "0"))
+    .map((byte) => byte.toString(16).toUpperCase().padStart(2, "0"))
     .join("");
   return hexString;
 }
