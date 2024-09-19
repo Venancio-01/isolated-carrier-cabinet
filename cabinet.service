@@ -3,7 +3,7 @@ Description=Node.js Service for isolated-carrier-cabinet
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/node /home/orangepi/project/isolated-carrier-cabinet/index.js
+ExecStart=/usr/bin/node /home/orangepi/smart-cabinet/isolated-carrier-cabinet/dist/index.js
 User=orangepi
 Restart=always
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js",
+    "start": "bash build/build.sh",
     "build:pkg": "pkg --target node14-linux-armv7 dist/index.js"
   },
   "keywords": [],
