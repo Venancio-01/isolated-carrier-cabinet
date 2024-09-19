@@ -8,6 +8,7 @@ const emit_1 = __importDefault(require("./utils/emit"));
 const util_1 = require("./utils/util");
 const logger_1 = __importDefault(require("./utils/logger"));
 const rfid_utils_1 = require("rfid-utils");
+console.log("rfid module loaded");
 const port = new serialport_1.SerialPort({
     path: "/dev/ttyS1",
     baudRate: 115200,

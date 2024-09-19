@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const orange_pi_gpio_1 = __importDefault(require("orange-pi-gpio"));
 const emit_1 = __importDefault(require("./utils/emit"));
 const logger_1 = __importDefault(require("./utils/logger"));
+console.log("lock module loaded");
 const port = 20;
 let prevState = null;
 let triggered = false;

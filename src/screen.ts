@@ -5,6 +5,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import logger from "./utils/logger";
 
+console.log("screen module loaded");
+
 const configPath = path.resolve(__dirname, '../config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 

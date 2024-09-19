@@ -4,6 +4,8 @@ import { MessageQueue } from "./utils/util";
 import logger from "./utils/logger";
 import { generateStartCommand, generateStopCommand, getTIDList } from "rfid-utils";
 
+console.log("rfid module loaded");
+
 const port: SerialPort = new SerialPort({
   path: "/dev/ttyS1",
   baudRate: 115200,

@@ -2,6 +2,8 @@ import Gpio from "orange-pi-gpio";
 import eventEmitter from "./utils/emit";
 import logger from "./utils/logger";
 
+console.log("lock module loaded");
+
 const port: number = 20;
 let prevState: number | null = null;
 let triggered: boolean = false;
