@@ -70,7 +70,7 @@ const block3 = "0300";
 const block4 = "0362";
 function initScreen() {
     const command1 = generateCommand(`${block1}${(0, util_1.generateScreenCommandBody)("在柜文件：0")}`);
-    const command2 = generateCommand(`${block2}${(0, util_1.generateScreenCommandBody)("")}`);
+    const command2 = generateCommand(`${block2}${(0, util_1.generateScreenCommandBody)("222")}`);
     const command3 = generateCommand(`${block3}${(0, util_1.generateScreenCommandBody)("   " + config.user)}`);
     const command4 = generateCommand(`${block4}${(0, util_1.generateScreenCommandBody)("")}`);
     const commands = [command1, command2, command3, command4];
