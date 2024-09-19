@@ -37,8 +37,8 @@ const configPath = path.resolve(__dirname, '../config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 const port = new serialport_1.SerialPort({
     path: "/dev/ttyS2",
-    // baudRate: 115200,
-    baudRate: 57600, // 常见的波特率还有9600、19200、38400、57600等
+    baudRate: 115200,
+    // baudRate: 57600, // 常见的波特率还有9600、19200、38400、57600等
 });
 port.on("open", function () {
     logger_1.default.info("Screen SerialPort Open");
