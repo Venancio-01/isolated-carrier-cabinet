@@ -64,9 +64,9 @@ function generateCommand(body) {
     const buf = Buffer.from(commandStr, "hex");
     return buf;
 }
-const block1 = "01F1";
-const block2 = "026C";
-const block3 = "02E7";
+const block1 = "0000";
+const block2 = "0600";
+const block3 = "0300";
 const block4 = "0362";
 function initScreen() {
     const command1 = generateCommand(`${block1}${(0, util_1.generateScreenCommandBody)("在柜文件：0")}`);
