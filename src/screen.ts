@@ -12,7 +12,8 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 
 const port = new SerialPort({
   path: "/dev/ttyS2",
-  baudRate: 115200,
+  // baudRate: 115200,
+  baudRate: 9600,
 });
 
 port.on("open", function () {
