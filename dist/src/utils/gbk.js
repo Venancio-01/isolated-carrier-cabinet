@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = default_1;
+exports.default = gbkEncode;
 let table;
 // https://en.wikipedia.org/wiki/GBK_(character_encoding)#Encoding
 const ranges = [
@@ -19,23 +19,25 @@ for (const [b1Begin, b1End, b2Begin, b2End] of ranges) {
     for (let b2 = b2Begin; b2 <= b2End; b2++) {
         if (b2 !== 0x7F) {
             for (let b1 = b1Begin; b1 <= b1End; b1++) {
-                codes[i++] = b2 << 8 | b1;
+                codes[i++] = (b2 << 8) | b1;
             }
         }
     }
 }
-table = new Uint16Array(65536);
-table.fill(0xFFFF);
-const str = new TextDecoder('gbk').decode(codes);
-for (let i = 0; i < str.length; i++) {
-    table[str.charCodeAt(i)] = codes[i];
+function initGbkTable() {
+    table = new Uint16Array(65536);
+    table.fill(0xFFFF);
+    const str = new TextDecoder('gbk').decode(codes);
+    for (let i = 0; i < str.length; i++) {
+        table[str.charCodeAt(i)] = codes[i];
+    }
 }
 const NodeJsBufAlloc = typeof Buffer === 'function' && Buffer.allocUnsafe;
 const defaultOnAlloc = NodeJsBufAlloc
     ? (len) => NodeJsBufAlloc(len)
     : (len) => new Uint8Array(len);
 const defaultOnError = () => 63; // '?'
-function default_1(str, opt = {}) {
+function gbkEncode(str, opt = {}) {
     if (!table) {
         initGbkTable();
     }
@@ -46,13 +48,12 @@ function default_1(str, opt = {}) {
     for (let i = 0; i < str.length; i++) {
         const code = str.charCodeAt(i);
         if (code < 0x80) {
-            buf[n++];
-            ntin;
+            buf[n++] = code;
             continue;
         }
         const gbk = table[code];
         if (gbk !== 0xFFFF) {
-            buf[n++] = gbk;
+            buf[n++] = gbk & 0xFF;
             buf[n++] = gbk >> 8;
         }
         else if (code === 8364) {
@@ -66,7 +67,7 @@ function default_1(str, opt = {}) {
                 break;
             }
             if (ret > 0xFF) {
-                buf[n++] = ret;
+                buf[n++] = ret & 0xFF;
                 buf[n++] = ret >> 8;
             }
             else {
